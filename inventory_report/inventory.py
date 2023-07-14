@@ -11,6 +11,6 @@ class Inventory:
     def data(self) -> Optional[list[Product]]:
         return self._data
 
-    def add_data(self, new_product:list[Product]) -> None:
-        for product in new_product:
+    def add_data(self, data:list[Product]) -> None:
+        for product in data:
             self._data.append(product)
