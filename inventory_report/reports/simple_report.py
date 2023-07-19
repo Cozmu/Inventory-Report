@@ -1,3 +1,4 @@
+from collections import Counter
 from datetime import date
 
 from inventory_report.inventory import Inventory
@@ -13,10 +14,18 @@ class SimpleReport:
 
     def generate(self) -> str:
         for inventory in self.stock:
-            sorted_old = 
+            def get_closest(product: Product) -> str:
+                if product.expiration_date >= str(date.today()):
+                    return product.expiration_date
+                else:
+                    return str(date.max)
+
+            sort_oldest = sorted(inventory.data, key=lambda x: x.manufacturing_date)
+            sort_closest = sorted(inventory.data, key=get_closest)
+            count_biggest_stock = Counter(product.company_name for product in inventory.data).most_common()
 
         return (
-            f"Oldest manufacturing date: {}"
-            f"Closest expiration date: {}"
-            f"Company with the largest inventory: {}"
+            f"Oldest manufacturing date: {sort_oldest[0].manufacturing_date}\n"
+            f"Closest expiration date: {sort_closest[0].expiration_date}\n"
+            f"Company with the largest inventory: {count_biggest_stock[0][0]}\n"
         )
